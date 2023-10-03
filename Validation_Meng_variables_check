@@ -1,0 +1,17 @@
+#setting up a working directory
+setwd("G:/NYU/Ziqiang Lin's Project Code/phenotyping_new/data from Meng")
+
+#installing packages for the first time
+install.packages("data.table")
+install.packages("tidyverse")
+install.packages("randomForest")
+library(data.table)
+library(dplyr)
+library(ggplot2) #plot library
+
+df <- fread(file = "validation biomarker data with 343 variables.csv", data.table = F)
+
+glimpse(df)
+colnames(df)
+str(df)
+View(df)
