@@ -7,6 +7,7 @@ install.packages("tidyverse")
 install.packages("randomForest")
 library(data.table)
 library(dplyr)
+library(ggplot2) #plot library
 library(randomForest)
 
 #reading a big file 
@@ -16,6 +17,8 @@ df <- fread(file = "file_name.csv", data.table = F)
 d1 <- df %>% select(-columnA, -columnB, -columnC) %>% 
   filter(Condition %in% c("group_A", "group_B", "group_C"))
 
+# Glimpse the dataframe to view the names of columns, the type and a few data rows 
+glimpse(dataframe)
 
 # Exploring types in condition: table(df$Column_name)
 
