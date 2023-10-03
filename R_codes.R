@@ -29,7 +29,7 @@ d1 <- d1 %>% relocate(ct = Condition, .after=last_col()) # rename Condition as c
 
 # Explore the dataframe
 tail(colnames(d1))
-view(d1)
+View(d1)
 head(colnames(d1))
 # count how many columns starting with ch 
     #colnames(df) %>% startsWith(., "ch")%>% table()
