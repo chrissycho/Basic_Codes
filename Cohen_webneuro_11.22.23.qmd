@@ -1,0 +1,42 @@
+---
+title: "Cohen_webneuro"
+format: html
+editor: source
+---
+
+```{r setup}
+library(here)
+library(dplyr)
+library(magrittr)
+library(table1)
+library(readxl)
+library(data.table)
+
+my.render.cont <- function(x) {
+  with(stats.apply.rounding(stats.default(x), digits=3), c("",
+                                                           "Mean (SD)"=sprintf("%s (%s)", MEAN, SD),
+                                                           "Median [IQR]" = sprintf("%s [%s, %s]", MEDIAN, Q1, Q3),
+                                                           "Min, Max" = sprintf("%s, %s", MIN, MAX )))}
+
+```
+
+
+```{r read in data}
+df <- read_excel(here("Cohen_Webneuro_980.xlsx"), na = c(".", "NULL", NA, ""))
+str(df)
+d1 <- df %>% filter(Subgroup %in% c("1A"))
+str(d1)
+fwrite(d1, file = "Cohen_webneuro_control.csv", row.names = F)
+
+
+d1_raw <- d1 %>% select(tdomnk:ecorrtekIFCH)
+d1_raw <- d1 %>% group_by(ID) %>% slice_tail(n = 1) %>% ungroup() %>% select(tdomnk:ecorrtekIFCH)
+View(d1_raw)
+colnames(d1_raw)
+
+```
+```{r}
+table1(~., data = d1_raw,render.continuous = my.render.cont)
+#d1_raw %>% table1(~., data= .) same function
+```
+
